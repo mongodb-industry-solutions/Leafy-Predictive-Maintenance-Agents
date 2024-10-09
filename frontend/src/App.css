@@ -1,0 +1,97 @@
+
+body, .App {
+  font-family: Arial, sans-serif;
+}
+
+.App {
+  text-align: center;
+}
+
+.control-buttons {
+  margin: 20px;
+}
+
+.control-buttons button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+.graph-container {
+  margin: 20px;
+}
+
+.explanation {
+  margin: 20px auto;
+  padding: 15px;
+  max-width: 800px;
+  background-color: #f0f8ff; /* light blue  */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.explanation p {
+  margin: 0;
+}
+
+.explanation ul {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+.explanation li {
+  margin: 5px 0;
+}
+
+.data-display-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.data-section {
+  width: 80%;
+  margin: 20px 0;
+  text-align: left;
+}
+
+.data-section pre {
+  background-color: #f5f5f5;
+  padding: 10px;
+  overflow-x: auto;
+}
+
+.agent-details-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.agent-details {
+  flex: 1;
+  margin: 0 10px;
+  text-align: left;
+  padding: 20px;
+  border: 1px solid #ccc;
+  max-width: 30%;
+  box-sizing: border-box;
+}
+
+.kpi-container {
+  margin-top: 20px;
+  text-align: left;
+  padding: 20px;
+  border: 1px solid #ccc;
+}
+
+.kpi-container ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.kpi-container li {
+  margin: 5px 0;
+}

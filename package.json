@@ -1,0 +1,29 @@
+{
+    "name": "ai-agents-demo",
+    "version": "1.0.0",
+    "description": "AI Agents Collaboration Demo",
+    "main": "server/server.js",
+    "scripts": {
+        "start": "node server/server.js",
+        "generate-data": "node data/syntheticDataGenerator.js",
+        "generate-documents": "node data/generateDocuments.js",
+        "index-documents": "node server/indexDocuments.js",
+        "start-frontend": "cd frontend && npm start"
+    },
+    "dependencies": {
+        "@langchain/cohere": "^0.3.0",
+        "@langchain/core": "^0.3.6",
+        "@langchain/langgraph": "^0.2.10",
+        "@langchain/mongodb": "^0.1.0",
+        "cohere-ai": "^7.14.0",
+        "dotenv": "^16.0.3",
+        "express": "^4.18.2",
+        "langchain": "^0.3.2",
+        "lodash": "^4.17.21",
+        "ml-regression": "^5.0.0",
+        "mongodb": "^6.9.0",
+        "socket.io": "^4.8.0"
+    },
+    "author": "humza",
+    "license": "MIT"
+}
