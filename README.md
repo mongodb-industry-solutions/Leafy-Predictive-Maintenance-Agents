@@ -1,7 +1,6 @@
 # AI Agents Demo with MongoDB Atlas
 
-To run the demo
-setup env variables as
+To run the demo setup env variables as follows
 
 Create an .env file in root folder and set the following variables
 
