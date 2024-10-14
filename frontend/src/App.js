@@ -4,6 +4,7 @@ import socketIOClient from 'socket.io-client';
 import Graph from 'react-graph-vis';
 import './App.css';
 
+
 function App() {
   // State variables
   const [socket, setSocket] = useState(null);
@@ -24,7 +25,7 @@ function App() {
     return () => {
       newSocket.disconnect();
     };
-  }, []); 
+  }, []);
 
   const handleStart = () => {
     if (socket) {
@@ -119,6 +120,7 @@ function App() {
   };
 
   return (
+    
     <div className="App">
       <h1>MongoDB AI Agents Collaboration Demo</h1>
       <div className="explanation">
@@ -138,14 +140,17 @@ function App() {
           Feedback is always welcome. Please provide your feedback to humza.akhtar@mongodb.com
         </p>
       </div>
+
       <div className="control-buttons">
-        <button onClick={handleStart} disabled={isRunning}>
+        <button className="start-buttons" onClick={handleStart} disabled={isRunning}>
           Start AI Agents
         </button>
-        <button onClick={handleStop} disabled={!isRunning}>
+        <button className="stop-buttons" onClick={handleStop} disabled={!isRunning}>
           Stop AI Agents
         </button>
       </div>
+
+      {/** 
       <div className="graph-container">
         <Graph
           graph={graphData}
@@ -156,6 +161,12 @@ function App() {
           }}
         />
       </div>
+
+      */}
+
+      <img src="/process_diagram.png" alt="Process Diagram" width="600" height="250" />
+
+
       <div className="data-display-container">
         <div className="data-section">
           <h2>Machine Data</h2>
@@ -167,7 +178,8 @@ function App() {
         </div>
         <div className="agent-details-container">
           <div className="agent-details">
-            <h2>Predictive Maintenance Agent</h2>
+            <p className="agent-chip-pm">AGENT</p>
+            <h2 className="agent-chip-h2">Predictive Maintenance</h2>
             {agentData.maintenance ? (
               <div dangerouslySetInnerHTML={{ __html: formatText(agentData.maintenance) }} />
             ) : (
@@ -175,7 +187,8 @@ function App() {
             )}
           </div>
           <div className="agent-details">
-            <h2>Process Optimization Agent</h2>
+            <p className="agent-chip-po">AGENT</p>
+            <h2>Process Optimization</h2>
             {agentData.optimization ? (
               <div dangerouslySetInnerHTML={{ __html: formatText(agentData.optimization) }} />
             ) : (
@@ -183,7 +196,8 @@ function App() {
             )}
           </div>
           <div className="agent-details">
-            <h2>Quality Assurance Agent</h2>
+            <p className="agent-chip-qa">AGENT</p>
+            <h2>Quality Assurance</h2>
             {agentData.quality ? (
               <div dangerouslySetInnerHTML={{ __html: formatText(agentData.quality) }} />
             ) : (

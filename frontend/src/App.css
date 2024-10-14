@@ -1,11 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+Pro&display=swap');
 
 body, .App {
-  font-family: Arial, sans-serif;
+  font-family: 'Lexend Deca', sans-serif;
+
 }
 
 .App {
   text-align: center;
 }
+
+h1 {
+  font-family: 'Source Serif Pro', serif;
+  font-size: 40px;
+  color: #00684A;
+}
+
+strong {
+  font-weight: 900; 
+}
+
 
 .control-buttons {
   margin: 20px;
@@ -15,6 +29,24 @@ body, .App {
   margin: 0 10px;
   padding: 10px 20px;
   font-size: 16px;
+  border-radius: 10px;
+}
+
+.start-buttons{
+  background-color: #00ED64;
+  border: 1px solid black;
+}
+
+.stop-buttons{
+  border: 1px solid red;
+  background-color: white;
+  color: red;
+}
+
+.control-buttons button:disabled{
+  background-color: #E8EDEB;
+  border: 1px solid #889397;
+  color: #889397;
 }
 
 .graph-container {
@@ -24,13 +56,14 @@ body, .App {
 .explanation {
   margin: 20px auto;
   padding: 15px;
-  max-width: 800px;
-  background-color: #f0f8ff; /* light blue  */
+  max-width: 80%;
+  background-color: #F9FBFA; /* light blue  */
   border: 1px solid #ccc;
-  border-radius: 8px;
+  border-radius: 20px;
   font-size: 16px;
   line-height: 1.5;
   text-align: left;
+  font-weight: 200;
 }
 
 .explanation p {
@@ -53,8 +86,8 @@ body, .App {
 }
 
 .data-section {
-  width: 80%;
-  margin: 20px 0;
+  width: 90%;
+  margin: 10px 0;
   text-align: left;
 }
 
@@ -72,19 +105,21 @@ body, .App {
 
 .agent-details {
   flex: 1;
-  margin: 0 10px;
+  margin: 0 20px;
   text-align: left;
-  padding: 20px;
-  border: 1px solid #ccc;
+  padding: 10px 20px;
   max-width: 30%;
   box-sizing: border-box;
+  border-radius: 20px;
+  box-shadow: 2px 2px 10px 2px rgb(0 0 0 / 8%);
 }
 
 .kpi-container {
-  margin-top: 20px;
+  margin: 30px 50px 30px 50px;
   text-align: left;
   padding: 20px;
-  border: 1px solid #ccc;
+  border-radius: 20px;
+  box-shadow: 2px 2px 10px 2px rgb(0 0 0 / 8%);
 }
 
 .kpi-container ul {
@@ -94,4 +129,42 @@ body, .App {
 
 .kpi-container li {
   margin: 5px 0;
+}
+.agent-chip-h2{
+  margin-top: 15px;
+}
+
+.agent-chip-pm{
+  background-color: #F9EBFF;
+  max-width: fit-content;
+  border-radius: 50px;
+  padding: 5px;
+  font-weight: 600;
+  color: #9e50d2;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+
+
+.agent-chip-po{
+  background-color: #E3FCF7;
+  max-width: fit-content;
+  border-radius: 50px;
+  padding: 5px;
+  font-weight: 600;
+  color: #006CFA;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.agent-chip-qa{
+  background-color: #E9FF99;
+  max-width: fit-content;
+  border-radius: 50px;
+  padding: 5px;
+  font-weight: 600;
+  color: #01854b;
+  font-size: 12px;
+  margin-top: 5px;
 }
