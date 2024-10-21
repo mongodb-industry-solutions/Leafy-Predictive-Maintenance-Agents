@@ -86,7 +86,7 @@ strong {
 }
 
 .data-section {
-  width: 90%;
+  width: fit-content;
   margin: 10px 0;
   text-align: left;
 }
@@ -95,6 +95,7 @@ strong {
   background-color: #f5f5f5;
   padding: 10px;
   overflow-x: auto;
+  border-radius: 10px;
 }
 
 .agent-details-container {
@@ -105,21 +106,23 @@ strong {
 
 .agent-details {
   flex: 1;
-  margin: 0 20px;
+  margin: 0px 20px;
   text-align: left;
   padding: 10px 20px;
-  max-width: 30%;
+  max-width: 33%;
   box-sizing: border-box;
   border-radius: 20px;
   box-shadow: 2px 2px 10px 2px rgb(0 0 0 / 8%);
+  font-size: 14px;
 }
 
 .kpi-container {
-  margin: 30px 50px 30px 50px;
+  margin: 30px auto; 
   text-align: left;
   padding: 20px;
   border-radius: 20px;
   box-shadow: 2px 2px 10px 2px rgb(0 0 0 / 8%);
+  width: fit-content;
 }
 
 .kpi-container ul {

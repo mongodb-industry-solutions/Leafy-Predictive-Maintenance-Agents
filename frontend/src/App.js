@@ -218,10 +218,15 @@ function App() {
 }
 
 function formatText(text) {
-  const lines = text.split('\n').filter((line) => line.trim() !== '');
+  const lines = text.split('\n')
+    .map((line) => line.trim().replace(/^-/, '').trim()) // Remove the dash if present and extra spaces
+    .filter((line) => line !== ''); // Remove empty lines
+
   const listItems = lines.map((line) => `<li>${line}</li>`).join('');
   return `<ul>${listItems}</ul>`;
 }
+
+
 
 function formatJSON(data) {
   return data ? JSON.stringify(data, null, 2) : 'No data available.';
