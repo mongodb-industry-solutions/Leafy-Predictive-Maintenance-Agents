@@ -141,7 +141,7 @@ function App() {
         </p>
         <ul> </ul>
         <p>
-        <u>Instructions</u>: Start the demo by clicking on "Start AI Agents" button. It will take about 10 seconds for the first set of data to appear and then we refresh with new data every minute.
+        <u>Instructions</u>: Start the demo by clicking on "Start AI Agents" button. It will take about 10 seconds for the first set of data to appear and then we refresh with new data every 30 seconds or so.
         </p>
       </div>
 
