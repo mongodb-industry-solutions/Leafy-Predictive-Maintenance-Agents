@@ -65,10 +65,7 @@ Observe the output of the agents. The data will start flowing in after 10 second
 
 The data only refreshes once every 30 seconds giving you enough time to review the output.
 
-You can change the frequency from 
+You can change this frequency from function `startAgentExecution` in `server.js`
 
-```
-agents/orchestrator.js
-```
 
 

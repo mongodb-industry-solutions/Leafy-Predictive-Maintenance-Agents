@@ -108,7 +108,6 @@ spindle motor lubrication guidelines
   
   `;
   
-        console.log('New Prompt after Tool Use:', newPrompt);
   
        
   
@@ -127,7 +126,6 @@ spindle motor lubrication guidelines
         trimResponse = finalResponse.message.content[0].text;
   
 
-        console.log("this is final response of the pred maintenance agent: ", trimResponse);
 
 
 
@@ -190,7 +188,7 @@ function extractToolDetails(toolRequests) {
       if (!toolName) {
         toolName = currentToolName;
       } else if (toolName !== currentToolName) {
-        console.log(`Multiple tool names detected. Current tool: "${toolName}", New tool: "${currentToolName}".`);
+        //console.log(`Multiple tool names detected. Current tool: "${toolName}", New tool: "${currentToolName}".`);
         // Optionally handle multiple tools if necessary
       }
 

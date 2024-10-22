@@ -80,7 +80,7 @@ async function startAgentExecution() {
         }
 
         // wait for 1 min before processing the next data point. This is a limitation of Cohere Trial API Key
-        await new Promise((resolve) => setTimeout(resolve, 60000));
+        await new Promise((resolve) => setTimeout(resolve, 30000));
       }
 
       if (!isRunning) {

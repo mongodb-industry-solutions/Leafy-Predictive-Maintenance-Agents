@@ -73,7 +73,6 @@ spindle motor quality related guidelines
 
 
     const toolRequests = response.message.toolCalls;
-    console.log("this is toolCall for QA agent: ", JSON.stringify(response.message.toolCalls));
 
 
     const { toolName, toolInput } = extractToolDetails(toolRequests);

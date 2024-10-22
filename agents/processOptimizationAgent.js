@@ -81,8 +81,6 @@ const response = await cohereLLM.chat(
 
 
 
-console.log("this is first response: ", response);
-  console.log("this is toolCall: ", JSON.stringify(response.message.toolCalls));
   const toolRequests = response.message.toolCalls;
 
 
