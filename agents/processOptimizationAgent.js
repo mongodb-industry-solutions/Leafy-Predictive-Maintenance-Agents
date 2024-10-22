@@ -14,7 +14,7 @@ async function execute(input) {
     .map((tool) => `${tool.name}: ${tool.description}`)
     .join('\n');
 
-  const prompt = `
+  const system_message = `
   You are the **Process Optimization AI Agent**, a specialist in enhancing production efficiency within a smart factory environment.
 
   **Role and Responsibilities:**
@@ -23,12 +23,8 @@ async function execute(input) {
   - **Integrate Insights:** Incorporate findings from the Predictive Maintenance and Quality Assurance Agents to inform optimization strategies.
   - **Utilize Predictive Models:** Leverage predictive models to anticipate the impact of parameter changes on production outcomes.
   
-You have access to the following tools:
-${toolsDescription}
+  You have access to a search_documents tool which you must use
 
-You must have to use a tool, so output a line in the format:
-
-[Tool Request]: <tool_name>:<tool_input>
 
 Given the following machine sensor data:
 ${input_data}
@@ -46,82 +42,82 @@ And use the search_documents tool
 
 
 **Objective:**
-As the optimization expert, analyze the provided data and maintenance findings to adjust production parameters for enhanced efficiency.
+As the optimization expert, analyze the provided data and maintenance findings and write down what tool you need to use and what do you need to search
 
 **Output Requirements:**
-- Provide the **top 2 specific process optimization recommendations** to enhance efficiency, in bullet points.
-- Focus solely on production process adjustments and dont overlap with predictive maintenance or quality assurance agent output.
-- Ensure recommendations are actionable and aimed at maximizing efficiency without compromising quality.
+Your function arguments should be the query you want to run in search_documents tool 
+You must include query for the tool in your response.
+
+**Example Output:**
+spindle motor lubrication guidelines
+
 
 `;
 
 
-    const response = await cohereLLM.chat(
-      {
-        model: "command-r",
-        messages: [
-          { role: "user",
-            content: prompt
-          }
-        ]
+const response = await cohereLLM.chat(
+  {
+    model: "command-r",
+    messages: [
+      { 
+        role: "user",
+        content: system_message
       }
-    )
-
-
-    let trimResponse= response.message.content[0].text;
-
-// Check if the model wants to use a tool
-//const toolRequestRegex = /\[Tool Request\]:\s*(\w+):(.+)/;
-const toolRequestRegex = /\[Tool Request\]?:\s*(\w+):\s*"?(.*?)"?$/m;
-
-const match = trimResponse.match(toolRequestRegex);
-
-if (match) {
-  const toolName = match[1].trim();
-  const toolInput = match[2].trim();
-
-  console.log(`Model requested tool: ${toolName} with input: ${toolInput}`);
-
-  // Find the tool
-  const tool = tools.find((t) => t.name === toolName);
-  if (tool) {
-    // Execute the tool
-    const toolResult = await tool.func(toolInput);
-    //console.log(`Tool Result: ${toolResult}`);
-
-    // Update the prompt with the tool result
-    const newPrompt = `
-You previously requested to use the tool ${toolName} with input "${toolInput}" and received the following result:
-
-${toolResult}
-
-Based on this information, provide the top 2 specific process optimization recommendations to enhance efficiency, in bullet points.
-
-Focus on production process adjustments only.
-`;
-
-   // console.log('New Prompt after Tool Use:', newPrompt);
-
-
-
-    const finalResponse = await cohereLLM.chat(
-      {
-        model: "command-r",
-        messages: [
-          { role: "user",
-            content: newPrompt
+    ],
+        tools: [
+          {
+            function:{
+                name:"search_documents",
+                description:"Search through machine manuals and work orders for relevant information.",
+                parameters: {
+                    "type":"object"
+                }
           }
+        }
+          
         ]
-      }
-    )
-
-    trimResponse = finalResponse.message.content[0].text;
-
-    //console.log('Final Model Output:', trimResponse);
-  } else {
-    console.log(`Tool ${toolName} not found.`);
   }
-}
+)
+
+
+
+console.log("this is first response: ", response);
+  console.log("this is toolCall: ", JSON.stringify(response.message.toolCalls));
+  const toolRequests = response.message.toolCalls;
+
+
+  const { toolName, toolInput } = extractToolDetails(toolRequests);
+  const tool = tools.find((t) => t.name === toolName);
+  const toolResult = await tool.func(toolInput);
+
+
+  const newPrompt = `
+  You previously requested to use the tool ${toolName} with input "${toolInput}" and received the following result:
+  
+  ${toolResult}
+  
+  Based on this information, provide the top 2 specific process optimization recommendations to enhance efficiency, in bullet points.
+  
+  Focus on production process adjustments only.
+  `;
+
+
+  const finalResponse = await cohereLLM.chat(
+    {
+      model: "command-r",
+      messages: [
+        { role: "user",
+          content: newPrompt
+        }
+      ]
+    }
+  )
+
+  trimResponse = finalResponse.message.content[0].text;
+  
+
+
+
 
 
 
@@ -146,5 +142,73 @@ Focus on production process adjustments only.
 
   return trimResponse;
 }
+
+
+
+
+function extractToolDetails(toolRequests) {
+  // Check if the input is a valid array
+
+
+  // Initialize variables to store tool name and inputs
+  let toolName = '';
+  const toolInputs = [];
+
+  toolRequests.forEach(request => {
+    // Validate the structure of each tool request object
+    if (
+      request &&
+      request.function &&
+      typeof request.function.name === 'string' &&
+      typeof request.function.arguments === 'string'
+    ) {
+      // Extract the tool name
+      const currentToolName = request.function.name;
+
+      // Parse the JSON string in 'arguments' to get the tool input
+      let args;
+      try {
+        args = request.function.arguments;
+      } catch (error) {
+        console.error(`Error parsing arguments for tool "${currentToolName}":`, error);
+
+        return; // Skip this tool request if parsing fails
+      }
+
+      // Assuming the tool input is under the 'query' key
+      const toolInput = args;
+
+      if (!toolInput) {
+        console.warn(`No 'query' found for tool "${currentToolName}".`);
+
+        return; // Skip if 'query' is not present
+      }
+
+      // Assign the tool name (assuming all tools have the same name)
+      if (!toolName) {
+        toolName = currentToolName;
+      } else if (toolName !== currentToolName) {
+        console.log(`Multiple tool names detected. Current tool: "${toolName}", New tool: "${currentToolName}".`);
+        // Optionally handle multiple tools if necessary
+      }
+
+      // Add the tool input to the array
+      toolInputs.push(toolInput);
+    } else {
+      console.log('Invalid tool request object structure:', request);
+    }
+  });
+
+  // Combine all tool inputs with ' and '
+  const combinedToolInput = toolInputs.join(' and ');
+
+
+  return {
+    toolName: toolName,
+    toolInput: combinedToolInput
+  };
+}
+
+
 
 module.exports = { execute };

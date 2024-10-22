@@ -139,6 +139,10 @@ function App() {
         <p>
           Feedback is always welcome. Please provide your feedback to humza.akhtar@mongodb.com
         </p>
+        <ul> </ul>
+        <p>
+        <u>Instructions</u>: Start the demo by clicking on "Start AI Agents" button. It will take about 10 seconds for the first set of data to appear and then we refresh with new data every minute.
+        </p>
       </div>
 
       <div className="control-buttons">
