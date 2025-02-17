@@ -66,6 +66,7 @@ const response = await cohereLLM.chat(
     ],
         tools: [
           {
+            type:"function",
             function:{
                 name:"search_documents",
                 description:"Search through machine manuals and work orders for relevant information.",
