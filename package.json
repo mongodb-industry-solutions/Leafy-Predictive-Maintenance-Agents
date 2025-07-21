@@ -25,5 +25,8 @@
         "socket.io": "^4.8.0"
     },
     "author": "humza",
-    "license": "MIT"
+    "license": "MIT",
+    "devDependencies": {
+        "license-checker": "^25.0.1"
+    }
 }
